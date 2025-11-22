@@ -26,8 +26,6 @@ public class Movie {
       return _title;
   }
   
-  // NOVO MÉTODO: A lógica do cálculo veio para cá.
-  // Note que agora recebemos 'daysRented' como parâmetro.
   public double getCharge(int daysRented) {
       double result = 0;
       switch (getPriceCode()) {
@@ -47,4 +45,12 @@ public class Movie {
       }
       return result;
    }
+
+  // NOVO MÉTODO ADICIONADO: Lógica de pontos movida para cá
+  public int getFrequentRenterPoints(int daysRented) {
+      if ((getPriceCode() == NEW_RELEASE) && daysRented > 1)
+          return 2;
+      else
+          return 1;
+  }
 }

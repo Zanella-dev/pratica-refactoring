@@ -18,15 +18,12 @@ public class Rental {
       return _movie;
    }
 
-   // MUDANÇA: O método agora delega o cálculo para a classe Movie
    public double getCharge() {
       return _movie.getCharge(_daysRented);
    }
 
+   // MUDANÇA: O método agora delega o cálculo para a classe Movie
    public int getFrequentRenterPoints() {
-      if ((getMovie().getPriceCode() == Movie.NEW_RELEASE) && getDaysRented() > 1)
-          return 2;
-      else
-          return 1;
+      return _movie.getFrequentRenterPoints(_daysRented);
    }
 }
