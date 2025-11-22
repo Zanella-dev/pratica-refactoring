@@ -38,15 +38,12 @@ public class Movie {
       return _title;
   }
   
-  // MUDANÇA: Agora delegamos para a classe Price
   public double getCharge(int daysRented) {
       return _price.getCharge(daysRented);
    }
 
+  // MUDANÇA: Agora delegamos para a classe Price
   public int getFrequentRenterPoints(int daysRented) {
-      if ((getPriceCode() == NEW_RELEASE) && daysRented > 1)
-          return 2;
-      else
-          return 1;
+      return _price.getFrequentRenterPoints(daysRented);
   }
 }
