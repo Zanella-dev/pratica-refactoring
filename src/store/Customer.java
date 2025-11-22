@@ -20,26 +20,46 @@ public class Customer {
    }
   
    public String statement() {
-     double totalAmount = 0;
-     int frequentRenterPoints = 0;
-     Enumeration rentals = _rentals.elements();
-     String result = "Rental Record for " + getName() + "\n";
-     while (rentals.hasMoreElements()) {
-        Rental each = (Rental) rentals.nextElement();
+      Enumeration rentals = _rentals.elements();
+      String result = "Rental Record for " + getName() + "\n";
+      
+      // MUDANÇA: O loop agora serve APENAS para montar as linhas de texto.
+      // As variáveis 'totalAmount' e 'frequentRenterPoints' foram removidas daqui.
+      while (rentals.hasMoreElements()) {
+         Rental each = (Rental) rentals.nextElement();
 
-        // MUDANÇA: A lógica de cálculo de pontos foi substituída por esta linha:
-        frequentRenterPoints += each.getFrequentRenterPoints();
+         // show figures for this rental
+         result += "\t" + each.getMovie().getTitle()+ "\t" +
+                  String.valueOf(each.getCharge()) + "\n";
+      }
 
-        // show figures for this rental
-        result += "\t" + each.getMovie().getTitle()+ "\t" +
-            String.valueOf(each.getCharge()) + "\n";
-        totalAmount += each.getCharge();
+      // add footer lines
+      // MUDANÇA: Agora chamamos os novos métodos getTotalCharge() e getTotalFrequentRenterPoints()
+      result +=  "Amount owed is " + String.valueOf(getTotalCharge()) + "\n";
+      result += "You earned " + String.valueOf(getTotalFrequentRenterPoints()) +
+                     " frequent renter points";
+      return result;
+   }
+      
+   // NOVO MÉTODO EXTRAÍDO
+   private double getTotalCharge() {
+      double result = 0;
+      Enumeration rentals = _rentals.elements();
+      while (rentals.hasMoreElements()) {
+         Rental each = (Rental) rentals.nextElement();
+         result += each.getCharge();
+         }
+         return result;
+   }
 
-     }
-     //add footer lines
-     result +=  "Amount owed is " + String.valueOf(totalAmount) + "\n";
-     result += "You earned " + String.valueOf(frequentRenterPoints) +
-             " frequent renter points";
-     return result;
+   // NOVO MÉTODO EXTRAÍDO
+   private int getTotalFrequentRenterPoints(){
+      int result = 0;
+      Enumeration rentals = _rentals.elements();
+      while (rentals.hasMoreElements()) {
+         Rental each = (Rental) rentals.nextElement();
+         result += each.getFrequentRenterPoints();
+      }
+      return result;
    }
 }
