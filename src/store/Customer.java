@@ -25,11 +25,10 @@ public class Customer {
      Enumeration rentals = _rentals.elements();
      String result = "Rental Record for " + getName() + "\n";
      while (rentals.hasMoreElements()) {
-        double thisAmount = 0;
+        
+        // MUDANÇA: A variável 'double thisAmount' foi REMOVIDA.
+        
         Rental each = (Rental) rentals.nextElement();
-
-        // ALTERAÇÃO: Agora chamamos o método getCharge direto da classe Rental
-        thisAmount = each.getCharge();
 
         // add frequent renter points
         frequentRenterPoints ++;
@@ -37,10 +36,13 @@ public class Customer {
         if ((each.getMovie().getPriceCode() == Movie.NEW_RELEASE) &&
             each.getDaysRented() > 1) frequentRenterPoints ++;
 
-        //show figures for this rental
+        // show figures for this rental
+        // MUDANÇA: Substituímos 'thisAmount' por 'each.getCharge()' aqui:
         result += "\t" + each.getMovie().getTitle()+ "\t" +
-            String.valueOf(thisAmount) + "\n";
-        totalAmount += thisAmount;
+            String.valueOf(each.getCharge()) + "\n";
+        
+        // MUDANÇA: Substituímos 'thisAmount' por 'each.getCharge()' aqui também:
+        totalAmount += each.getCharge();
 
      }
      //add footer lines
@@ -49,6 +51,4 @@ public class Customer {
              " frequent renter points";
      return result;
    }
-
-   // O método amountFor foi DELETADO daqui pois foi movido para Rental
 }
