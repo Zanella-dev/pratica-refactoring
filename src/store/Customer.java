@@ -25,23 +25,14 @@ public class Customer {
      Enumeration rentals = _rentals.elements();
      String result = "Rental Record for " + getName() + "\n";
      while (rentals.hasMoreElements()) {
-        
-        // MUDANÇA: A variável 'double thisAmount' foi REMOVIDA.
-        
         Rental each = (Rental) rentals.nextElement();
 
-        // add frequent renter points
-        frequentRenterPoints ++;
-        // add bonus for a two day new release rental
-        if ((each.getMovie().getPriceCode() == Movie.NEW_RELEASE) &&
-            each.getDaysRented() > 1) frequentRenterPoints ++;
+        // MUDANÇA: A lógica de cálculo de pontos foi substituída por esta linha:
+        frequentRenterPoints += each.getFrequentRenterPoints();
 
         // show figures for this rental
-        // MUDANÇA: Substituímos 'thisAmount' por 'each.getCharge()' aqui:
         result += "\t" + each.getMovie().getTitle()+ "\t" +
             String.valueOf(each.getCharge()) + "\n";
-        
-        // MUDANÇA: Substituímos 'thisAmount' por 'each.getCharge()' aqui também:
         totalAmount += each.getCharge();
 
      }
